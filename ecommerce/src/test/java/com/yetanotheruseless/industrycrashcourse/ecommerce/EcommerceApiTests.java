@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.Mockito.when;
@@ -33,12 +34,28 @@ public class EcommerceApiTests {
     public void listAllTest() throws Exception {
         Product dummyFuji = new Product();
         dummyFuji.setName("Fuji");
-        when(productService.findAll()).thenReturn(Arrays.asList(dummyFuji));
+        when(productService.findAll()).thenReturn(Collections.singletonList(dummyFuji));
 
         mockMvc
-                .perform(get("/api/v1/product/all"))
+                .perform(get("/api/v1/product/list"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Fuji")));
+
+/*
+        mockMvc
+                .perform(post("/api/v1/product").content("json form of fuji's product"))
+                .andExpect(productService.addProduct(dummyFuji));
+
+ */
+    }
+
+    @Test
+    public void incorrectPathTest() throws Exception {
+        mockMvc
+                .perform(get("/api/v1/product/foo/bar/baz"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+               // .andExpect(content().string(containsString("dude")));
     }
 }

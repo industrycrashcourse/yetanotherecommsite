@@ -3,7 +3,6 @@ package com.yetanotheruseless.industrycrashcourse.ecommerce.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +22,10 @@ public class ProductService {
 
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    public List<Product> findByCustomerReviewAverageRange(Double min, Double max) {
+        return productRepository.findAllByCustomerReviewAverageBetween(min, max);
     }
 
     public Long addProduct(Product product) {
