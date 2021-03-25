@@ -21,7 +21,7 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @GetMapping("{sku}")
+    @GetMapping(path = "{sku}")
     public Product get(@PathVariable String sku) {
         return productService.findBySku(sku).orElseThrow(() -> new RuntimeException("not found"));
     }

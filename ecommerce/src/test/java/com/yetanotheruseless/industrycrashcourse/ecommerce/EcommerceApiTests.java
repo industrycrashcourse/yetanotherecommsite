@@ -11,8 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.hamcrest.core.StringContains.containsString;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,6 +35,8 @@ public class EcommerceApiTests {
     public void listAllTest() throws Exception {
         Product dummyFuji = new Product();
         dummyFuji.setName("Fuji");
+        dummyFuji.setSku("1234");
+
         when(productService.findAll()).thenReturn(Arrays.asList(dummyFuji));
 
         mockMvc
@@ -40,5 +44,16 @@ public class EcommerceApiTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Fuji")));
+
+        reset(productService);
+
+        when(productService.findBySku("1234")).thenReturn(Optional.of(dummyFuji));
+
+        mockMvc
+                .perform(get("/api/v1/product/1234"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Fuji")));
     }
+
 }
