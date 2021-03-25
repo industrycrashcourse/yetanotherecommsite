@@ -17,17 +17,17 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-/*
+
     @GetMapping(path = "list")
     public List<Product> list() {
         return productService.findAll();
     }
-*/
-    @GetMapping("{sku}")
+
+    @GetMapping(path = "{sku}")
     public Product get(@PathVariable String sku) {
-        return productService.findBySku(sku).get();//.orElseThrow(() -> new RuntimeException("dude, not found"));
+        return productService.findBySku(sku).orElseThrow(() -> new RuntimeException("dude, not found"));
     }
-/*
+
     @PostMapping
     public Long addProduct(@RequestBody Product product) {
         if (product.getName() == null) {
@@ -35,12 +35,10 @@ public class ProductController {
         }
         return productService.addProduct(product);
     }
- */
-/*
-    @GetMapping("byCustomerReviewAverage/{min}/{max}")
+
+
+    @GetMapping(path = "byCustomerReviewAverage/{min}/{max}")
     public List<Product> byCustomerReviewAverage(@PathVariable Double min, @PathVariable Double max) {
         return productService.findByCustomerReviewAverageRange(min, max);
     }
-
- */
 }
