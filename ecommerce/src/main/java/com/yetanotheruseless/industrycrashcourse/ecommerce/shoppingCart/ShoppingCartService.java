@@ -25,8 +25,8 @@ public class ShoppingCartService {
         return shoppingCartRepository.findAll();
     }
 
-    public List<ShoppingCart> findByCreatedBeforeDate(LocalDateTime dateTime) {
-        return shoppingCartRepository.findAllCreatedBeforeDate(dateTime);
+    public List<ShoppingCart> findByLastUpdatedAtTimestampBefore(LocalDateTime dateTime) {
+        return shoppingCartRepository.findAllByLastUpdatedAtTimestampBefore(dateTime);
     }
 
     public Long addShoppingCart(ShoppingCart shoppingCart) {

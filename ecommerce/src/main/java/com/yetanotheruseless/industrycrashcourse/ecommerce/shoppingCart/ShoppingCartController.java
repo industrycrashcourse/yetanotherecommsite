@@ -40,7 +40,7 @@ public class ShoppingCartController {
     // emailing users about carts that have been sitting for more than a day
     // or other related issues.
     @GetMapping(path = "createdBeforeDate/{dateTime}")
-    public List<ShoppingCart> createdBeforeDate(@PathVariable LocalDateTime dateTime) {
-        return shoppingCartService.findByCreatedBeforeDate(dateTime);
+    public List<ShoppingCart> lastUpdatedAtTimestampBefore(@PathVariable LocalDateTime dateTime) {
+        return shoppingCartService.findByLastUpdatedAtTimestampBefore(dateTime);
     }
 }

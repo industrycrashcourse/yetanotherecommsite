@@ -12,6 +12,6 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long
 
     Optional<ShoppingCart> findOneBySku(String sku);
 
-    List<ShoppingCart> findAllCreatedBeforeDate(LocalDateTime dateTime);
+    List<ShoppingCart> findAllByLastUpdatedAtTimestampBefore(LocalDateTime dateTime);
 
 }
