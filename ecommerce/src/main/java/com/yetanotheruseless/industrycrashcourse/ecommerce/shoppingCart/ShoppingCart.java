@@ -11,6 +11,8 @@ import java.time.*;
 public class ShoppingCart {
 
     @Id
+    @SequenceGenerator(name = "shoppingcart_sequence", sequenceName = "shoppingcart_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shoppingcart_sequence")
     private Long id;
     private String sku;
     private int numOfItemsInCart;
@@ -62,7 +64,21 @@ public class ShoppingCart {
     }
 
     public void addProductToCart(Product product) {
-//        productsInCart.add(product);
         numOfItemsInCart++;
+    }
+
+    public void removeProductFromCart(Product product) {
+        numOfItemsInCart--;
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "id=" + id +
+                "sku='" + sku + "'" +
+                "lastUpdatedAtTimestamp=" + lastUpdatedAtTimestamp.toString() +
+                "numOfItemsInCart=" + numOfItemsInCart +
+                "isCanceled=" + isCanceled +
+                "}";
     }
 }
