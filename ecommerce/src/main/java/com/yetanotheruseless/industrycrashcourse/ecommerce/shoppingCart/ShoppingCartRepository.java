@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
 
-    Optional<ShoppingCart> findOneBySku(String sku);
+    Optional<ShoppingCart> findOneById(Long id);
 
     List<ShoppingCart> findAllByLastUpdatedAtTimestampBefore(LocalDateTime dateTime);
 

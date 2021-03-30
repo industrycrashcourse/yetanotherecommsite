@@ -1,6 +1,5 @@
 package com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart;
 
-import com.yetanotheruseless.industrycrashcourse.ecommerce.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +22,9 @@ public class ShoppingCartController {
         return shoppingCartService.findAll();
     }
 
-    @GetMapping(path = "{sku}")
-    public ShoppingCart get(@PathVariable String sku) {
-        return shoppingCartService.findBySku(sku).orElseThrow(() -> new RuntimeException("Shopping cart not found. Sku: " + sku));
+    @GetMapping(path = "{id}")
+    public ShoppingCart get(@PathVariable Long id) {
+        return shoppingCartService.findById(id).orElseThrow(() -> new RuntimeException("Shopping cart not found. Id: " + id));
     }
 
     @PostMapping

@@ -14,7 +14,6 @@ public class ShoppingCart {
     @SequenceGenerator(name = "shoppingcart_sequence", sequenceName = "shoppingcart_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shoppingcart_sequence")
     private Long id;
-    private String sku;
     private int numOfItemsInCart;
     private LocalDateTime lastUpdatedAtTimestamp;
     private boolean isCanceled = false;
@@ -29,14 +28,6 @@ public class ShoppingCart {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
     }
 
     public int getNumOfItemsInCart() {
@@ -75,7 +66,6 @@ public class ShoppingCart {
     public String toString() {
         return "ShoppingCart{" +
                 "id=" + id +
-                "sku='" + sku + "'" +
                 "lastUpdatedAtTimestamp=" + lastUpdatedAtTimestamp.toString() +
                 "numOfItemsInCart=" + numOfItemsInCart +
                 "isCanceled=" + isCanceled +

@@ -17,8 +17,8 @@ public class ShoppingCartService {
         this.shoppingCartRepository = shoppingCartRepository;
     }
 
-    public Optional<ShoppingCart> findBySku(String sku) {
-        return shoppingCartRepository.findOneBySku(sku);
+    public Optional<ShoppingCart> findById(Long id) {
+        return shoppingCartRepository.findOneById(id);
     }
 
     public List<ShoppingCart> findAll() {
