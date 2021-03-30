@@ -3,6 +3,9 @@ package com.yetanotheruseless.industrycrashcourse.ecommerce;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.Product;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.ProductController;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.ProductService;
+import com.yetanotheruseless.industrycrashcourse.ecommerce.visitor.Visitor;
+import com.yetanotheruseless.industrycrashcourse.ecommerce.visitor.VisitorController;
+import com.yetanotheruseless.industrycrashcourse.ecommerce.visitor.VisitorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,7 +34,7 @@ public class EcommerceApiTests {
 
     @MockBean
     private ProductService productService;
-
+    private VisitorService visitorService;
     @Test
     public void listAllTest() throws Exception {
         Product dummyFuji = new Product();
@@ -63,6 +66,29 @@ public class EcommerceApiTests {
                 .andDo(print())
                 .andExpect(status().isNotFound());
                // .andExpect(content().string(containsString("dude")));
+    }
+
+    @Test
+    public void testVisitor() throws Exception {
+        Visitor visitor = new Visitor();
+        visitor.setId(12345L);
+        visitor.setSurname("Keita");
+        when(visitorService.findAll()).thenReturn(Collections.singletonList(visitor));
+        mockMvc
+                .perform(get("/api/v1/visitor/list"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Keita")));
+
+        reset(visitorService);
+
+        when(visitorService.findById(12345L).thenReturn(Optional.of(visitor)));
+
+        mockMvc
+                .perform(get("/api/v1/visitor/12345"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Keita")));
     }
 
 }

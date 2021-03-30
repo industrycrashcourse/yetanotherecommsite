@@ -52,7 +52,7 @@ public class Visitor {
 
     public String getSurname() { return surname; }
 
-    public void setSurname() { this.surname = surname; }
+    public void setSurname(String name) { this.surname = surname; }
 
     public void setlastVisitTimestamp (String lastvisitStamp) {
         this.lastVisitTimestamp = lastvisitStamp;
