@@ -73,7 +73,7 @@ public class EcommerceApiTests {
     @Test
     public void testShoppingCartAPIFunctions() throws Exception {
         ShoppingCart cart = new ShoppingCart();
-        Long id = cart.getId();
+        cart.setId(3000L);
         LocalDateTime currentDateTime = LocalDateTime.now();
         cart.setLastUpdatedAtTimestamp(currentDateTime);
         cart.setNumOfItemsInCart(5);
@@ -87,10 +87,10 @@ public class EcommerceApiTests {
 
         reset(shoppingCartService);
 
-        when(shoppingCartService.findById(id)).thenReturn(Optional.of(cart));
+        when(shoppingCartService.findById(3000L)).thenReturn(Optional.of(cart));
 
         mockMvc
-                .perform(get("/api/v1/shoppingCart/" + id.toString()))
+                .perform(get("/api/v1/shoppingCart/3000"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(currentDateTime.toString())));
