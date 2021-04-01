@@ -18,9 +18,11 @@ public class ProductCLI {
                 if (args.length > 1) {
                     fileLimit = Integer.parseInt(args[1]);
                 }
+                /*
                 for (List<Product> batch : ProductLoader.loadProductsForJava(path, fileLimit)) {
                     productRepository.saveAll(batch);
                 }
+                */
             }
         };
     }

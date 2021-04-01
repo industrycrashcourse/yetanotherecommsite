@@ -43,8 +43,5 @@ public class ProductController {
         return productService.findByCustomerReviewAverageRange(min, max);
     }
 
-    @GetMapping(path = "byOrderId/{Id}")
-    public List<Order> byOrderId(@PathVariable Double Id) {
-        return productService.findByOrderid(Id);
-    }
+
 }

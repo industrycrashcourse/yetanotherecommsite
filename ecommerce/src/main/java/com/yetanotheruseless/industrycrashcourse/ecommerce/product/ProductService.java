@@ -33,8 +33,4 @@ public class ProductService {
         Product saved = productRepository.save(product);
         return saved.getId();
     }
-
-    public List<Order> findByOrderid(Double id) {
-        return productRepository.findByOrderId(id);
-    }
 }
