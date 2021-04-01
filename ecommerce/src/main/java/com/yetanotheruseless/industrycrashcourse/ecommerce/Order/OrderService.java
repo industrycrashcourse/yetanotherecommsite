@@ -1,8 +1,5 @@
 package com.yetanotheruseless.industrycrashcourse.ecommerce.Order;
 
-import com.yetanotheruseless.industrycrashcourse.ecommerce.Order.Order;
-import com.yetanotheruseless.industrycrashcourse.ecommerce.Order.OrderRepository;
-import com.yetanotheruseless.industrycrashcourse.ecommerce.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +25,7 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public List<Order> findByOrderid(Double id) {
+    public List<Order> findByOrderid(Long id) {
         return orderRepository.findByOrderId(id);
     }
 }
