@@ -1,6 +1,5 @@
 package com.yetanotheruseless.industrycrashcourse.ecommerce.product;
 
-import com.yetanotheruseless.industrycrashcourse.ecommerce.Order.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +31,5 @@ public class ProductService {
     public Long addProduct(Product product) {
         Product saved = productRepository.save(product);
         return saved.getId();
-    }
-
-    public List<Order> findByOrderid(Double id) {
-        return productRepository.findByOrderId(id);
     }
 }

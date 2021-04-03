@@ -1,6 +1,5 @@
 package com.yetanotheruseless.industrycrashcourse.ecommerce.product;
 
-import com.yetanotheruseless.industrycrashcourse.ecommerce.Order.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,10 +40,5 @@ public class ProductController {
     @GetMapping(path = "byCustomerReviewAverage/{min}/{max}")
     public List<Product> byCustomerReviewAverage(@PathVariable Double min, @PathVariable Double max) {
         return productService.findByCustomerReviewAverageRange(min, max);
-    }
-
-    @GetMapping(path = "byOrderId/{Id}")
-    public List<Order> byOrderId(@PathVariable Double Id) {
-        return productService.findByOrderid(Id);
     }
 }
