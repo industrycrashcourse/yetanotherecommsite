@@ -63,20 +63,10 @@ public class EcommerceApiTests {
         cart.setId(3000L);
         cart.setLastUpdatedAtTimestamp(LocalDateTime.now());
         cart.setNumOfItemsInCart(309);
-        when(shoppingCartService.findAll()).thenReturn(Collections.singletonList(cart));
+        when(shoppingCartService.findAll()).thenReturn(Arrays.asList(cart));
 
         mockMvc
                 .perform(get("/api/v1/shoppingCart/list"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("309")));
-
-        reset(shoppingCartService);
-
-        when(shoppingCartService.findById(3000L)).thenReturn(Optional.of(cart));
-
-        mockMvc
-                .perform(get("/api/v1/shoppingCart/3000"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("309")));
