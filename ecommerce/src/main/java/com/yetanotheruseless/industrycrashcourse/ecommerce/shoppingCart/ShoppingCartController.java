@@ -3,7 +3,7 @@ package com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -17,7 +17,7 @@ public class ShoppingCartController {
         this.shoppingCartService = shoppingCartService;
     }
 
-    @GetMapping(path = "list")
+    @GetMapping(path = "all")
     public List<ShoppingCart> list() {
         return shoppingCartService.findAll();
     }
@@ -35,11 +35,11 @@ public class ShoppingCartController {
         return shoppingCartService.addShoppingCart(shoppingCart);
     }
 
-    // retrieves all shopping carts created before a certain date. useful for
+    // retrieves all shopping carts created between two dates. useful for
     // emailing users about carts that have been sitting for more than a day
     // or other related issues.
-    @GetMapping(path = "createdBeforeDate/{dateTime}")
-    public List<ShoppingCart> lastUpdatedAtTimestampBefore(@PathVariable LocalDateTime dateTime) {
-        return shoppingCartService.findByLastUpdatedAtTimestampBefore(dateTime);
+    @GetMapping(path = "createdBeforeTimestamp/{instant}")
+    public List<ShoppingCart> lastUpdatedAtTimestampBefore(@PathVariable Instant instant) {
+        return shoppingCartService.findAllWithLastUpdatedAtTimestampBefore(instant);
     }
 }

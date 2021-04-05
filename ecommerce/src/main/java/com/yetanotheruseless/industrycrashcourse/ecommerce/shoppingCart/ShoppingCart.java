@@ -4,7 +4,9 @@ import com.yetanotheruseless.industrycrashcourse.ecommerce.product.Product;
 
 import javax.persistence.*;
 
-import java.time.*;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -15,11 +17,15 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shoppingcart_sequence")
     private Long id;
     private int numOfItemsInCart;
-    private LocalDateTime lastUpdatedAtTimestamp;
+    private Instant lastUpdatedAtTimestamp;
     private boolean isCanceled = false;
+    @ManyToMany
+    private List<Product> productsInCart;
 
     public ShoppingCart() {
-        lastUpdatedAtTimestamp = LocalDateTime.now();
+        productsInCart = new ArrayList<>();
+        numOfItemsInCart = 0;
+        lastUpdatedAtTimestamp = Instant.now();
     }
 
     public Long getId() {
@@ -38,11 +44,11 @@ public class ShoppingCart {
         this.numOfItemsInCart = numOfItemsInCart;
     }
 
-    public LocalDateTime getLastUpdatedAtTimestamp() {
+    public Instant getLastUpdatedAtTimestamp() {
         return lastUpdatedAtTimestamp;
     }
 
-    public void setLastUpdatedAtTimestamp(LocalDateTime lastUpdatedAtTimestamp) {
+    public void setLastUpdatedAtTimestamp(Instant lastUpdatedAtTimestamp) {
         this.lastUpdatedAtTimestamp = lastUpdatedAtTimestamp;
     }
 
@@ -54,21 +60,35 @@ public class ShoppingCart {
         this.isCanceled = isCanceled;
     }
 
+    public List<Product> getProductsInCart() {
+        return productsInCart;
+    }
+
+    public void setProductsInCart(List<Product> productsInCart) {
+        this.productsInCart = productsInCart;
+    }
+
     public void addProductToCart(Product product) {
-        numOfItemsInCart++;
+        productsInCart.add(product);
+        numOfItemsInCart = productsInCart.size();
+        lastUpdatedAtTimestamp = Instant.now();
     }
 
     public void removeProductFromCart(Product product) {
-        numOfItemsInCart--;
+        if(productsInCart.remove(product)) {
+            lastUpdatedAtTimestamp = Instant.now();
+        }
+        numOfItemsInCart = productsInCart.size();
     }
 
     @Override
     public String toString() {
         return "ShoppingCart{" +
                 "id=" + id +
-                "lastUpdatedAtTimestamp=" + lastUpdatedAtTimestamp.toString() +
-                "numOfItemsInCart=" + numOfItemsInCart +
-                "isCanceled=" + isCanceled +
+                ", lastUpdatedAtTimestamp=" + lastUpdatedAtTimestamp.toString() +
+                ", numOfItemsInCart=" + numOfItemsInCart +
+                ", isCanceled=" + isCanceled +
+                ", productsInCart=" + productsInCart +
                 "}";
     }
 }

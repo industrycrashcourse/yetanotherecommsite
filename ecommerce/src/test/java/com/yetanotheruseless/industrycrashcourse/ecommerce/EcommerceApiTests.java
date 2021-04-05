@@ -1,7 +1,6 @@
 package com.yetanotheruseless.industrycrashcourse.ecommerce;
 
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.Product;
-import com.yetanotheruseless.industrycrashcourse.ecommerce.product.ProductController;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.ProductService;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart.ShoppingCart;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart.ShoppingCartService;
@@ -12,7 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Arrays;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -58,18 +57,36 @@ public class EcommerceApiTests {
     }
 
     @Test
-    public void testShoppingCartAPIFunctions() throws Exception {
+    public void testShoppingCartCreation() throws Exception {
         ShoppingCart cart = new ShoppingCart();
         cart.setId(3000L);
-        cart.setLastUpdatedAtTimestamp(LocalDateTime.now());
+        cart.setLastUpdatedAtTimestamp(Instant.now());
         cart.setNumOfItemsInCart(309);
         when(shoppingCartService.findAll()).thenReturn(Arrays.asList(cart));
 
         mockMvc
-                .perform(get("/api/v1/shoppingCart/list"))
+                .perform(get("/api/v1/shoppingCart/all"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("309")));
+    }
+
+    @Test
+    public void testAddProductToCart() throws Exception {
+        ShoppingCart cart = new ShoppingCart();
+        cart.setId(2468L);
+        cart.setLastUpdatedAtTimestamp(Instant.now());
+        Product dummyFuji = new Product();
+        dummyFuji.setName("Fuji");
+        cart.addProductToCart(dummyFuji);
+        when(shoppingCartService.findAll()).thenReturn(Arrays.asList(cart));
+
+        mockMvc
+                .perform(get("/api/v1/shoppingCart/all"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("2468")))
+                .andExpect(content().string(containsString("Fuji")));
     }
 
 }

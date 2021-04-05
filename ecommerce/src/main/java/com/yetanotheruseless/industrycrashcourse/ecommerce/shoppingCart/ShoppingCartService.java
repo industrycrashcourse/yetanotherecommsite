@@ -3,7 +3,7 @@ package com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.List;
 
@@ -25,8 +25,8 @@ public class ShoppingCartService {
         return shoppingCartRepository.findAll();
     }
 
-    public List<ShoppingCart> findByLastUpdatedAtTimestampBefore(LocalDateTime dateTime) {
-        return shoppingCartRepository.findAllByLastUpdatedAtTimestampBefore(dateTime);
+    public List<ShoppingCart> findAllWithLastUpdatedAtTimestampBefore(Instant instant) {
+        return shoppingCartRepository.findAllWithLastUpdatedAtTimestampBefore(instant);
     }
 
     public Long addShoppingCart(ShoppingCart shoppingCart) {
