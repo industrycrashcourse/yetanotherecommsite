@@ -3,6 +3,9 @@ package com.yetanotheruseless.industrycrashcourse.ecommerce;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.Product;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.ProductController;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.ProductService;
+import com.yetanotheruseless.industrycrashcourse.ecommerce.productReview.ProductReview;
+import com.yetanotheruseless.industrycrashcourse.ecommerce.productReview.ProductReviewController;
+import com.yetanotheruseless.industrycrashcourse.ecommerce.productReview.ProductReviewService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -29,6 +32,9 @@ public class EcommerceApiTests {
     @MockBean
     private ProductService productService;
 
+    @MockBean
+    private ProductReviewService productReviewService;
+
     @Test
     public void listAllTest() throws Exception {
         Product dummyFuji = new Product();
@@ -40,5 +46,28 @@ public class EcommerceApiTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Fuji")));
+    }
+
+    @Test
+    public void incorrectPathTest() throws Exception {
+        mockMvc
+                .perform(get("/api/v1/product/foo/bar/baz"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+        // .andExpect(content().string(containsString("dude")));
+    }
+
+    @Test
+    public void testProductReview() throws Exception {
+        ProductReview review = new ProductReview();
+        review.setId(1234L);
+        review.setReview("review");
+        review.setProductRating(4);
+        review.setCustomerId(5678L);
+        mockMvc
+                .perform(get("/api/v1/productReview/list"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("review")));
     }
 }
