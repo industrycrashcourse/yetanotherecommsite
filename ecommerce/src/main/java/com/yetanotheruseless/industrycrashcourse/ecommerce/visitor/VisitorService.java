@@ -13,7 +13,11 @@ public class VisitorService {
     @Autowired
     public VisitorService(VisitorRepository visitorRepository) {this.visitorRepository = visitorRepository;}
 
+<<<<<<< HEAD
     public Optional<Visitor> findById(Long id){return visitorRepository.findOneById(id);}
+=======
+    public Optional<Visitor> findById(Long id){return visitorRepository.findById(id);}
+>>>>>>> 93a15a83e6c264b755899e100ae1e6d97f815c57
 
     public List<Visitor> findAll() { return visitorRepository.findAll();}
 
@@ -21,4 +25,8 @@ public class VisitorService {
         Visitor saved = visitorRepository.save(visitor);
         return saved.getId();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 93a15a83e6c264b755899e100ae1e6d97f815c57

@@ -91,4 +91,31 @@ public class EcommerceApiTests {
                 .andExpect(content().string(containsString("Keita")));
     }
 
+<<<<<<< HEAD
 }
+=======
+    @Test
+    public void testVisitor() throws Exception {
+        Visitor visitor = new Visitor();
+        visitor.setId(12345L);
+        visitor.setSurname("Keita");
+        when(visitorService.findAll()).thenReturn(Collections.singletonList(visitor));
+        mockMvc
+                .perform(get("/api/v1/visitor/list"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Keita")));
+
+        reset(visitorService);
+
+        when(visitorService.findById(12345L).thenReturn(Optional.of(visitor)));
+
+        mockMvc
+                .perform(get("/api/v1/visitor/12345"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Keita")));
+    }
+
+}
+>>>>>>> 93a15a83e6c264b755899e100ae1e6d97f815c57

@@ -9,4 +9,8 @@ import java.util.Optional;
 @Repository
 public interface VisitorRepository extends JpaRepository<Visitor,Long>{
     Optional<Visitor> findOneById(long id);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 93a15a83e6c264b755899e100ae1e6d97f815c57

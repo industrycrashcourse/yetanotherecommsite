@@ -28,8 +28,17 @@ public class VisitorController {
     }
 
     @PostMapping
+<<<<<<< HEAD
     public Long addVisitor(@RequestBody Visitor visitor) {
         if (visitor.getFirstNameName() == null) {}
         return visitorService.addVisitor(visitor);
     }
 }
+=======
+    public Long addProduct(@RequestBody Visitor visitor) {
+        if (visitor.getName() == null) {}
+        return visitorService.addVisitor(visitor);
+    }
+}
+
+>>>>>>> 93a15a83e6c264b755899e100ae1e6d97f815c57
