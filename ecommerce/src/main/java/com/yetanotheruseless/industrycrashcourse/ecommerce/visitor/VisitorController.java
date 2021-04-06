@@ -29,7 +29,7 @@ public class VisitorController {
 
     @PostMapping
     public Long addVisitor(@RequestBody Visitor visitor) {
-        if (visitor.getFirstNameName() == null) {}
+        if (visitor.getFirstName() == null) {System.out.println("Does Not Exist");}
         return visitorService.addVisitor(visitor);
     }
 }

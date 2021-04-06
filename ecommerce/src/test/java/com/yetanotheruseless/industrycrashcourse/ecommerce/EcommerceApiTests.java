@@ -34,6 +34,7 @@ public class EcommerceApiTests {
 
     @MockBean
     private ProductService productService;
+    @MockBean
     private VisitorService visitorService;
     @Test
     public void listAllTest() throws Exception {
@@ -43,7 +44,7 @@ public class EcommerceApiTests {
         when(productService.findAll()).thenReturn(Collections.singletonList(dummyFuji));
 
         mockMvc
-                .perform(get("/api/v1/product/list"))
+                .perform(get("/api/v1/product/all"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Fuji")));

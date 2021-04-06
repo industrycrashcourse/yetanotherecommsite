@@ -44,11 +44,11 @@ public class Visitor {
         this.id = id;
     }
 
-    public String getFirstNameName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstNameame(String firstName) { this.firstName = firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
     public String getSurname() { return surname; }
 
