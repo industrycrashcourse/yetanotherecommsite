@@ -1,12 +1,9 @@
 package com.yetanotheruseless.industrycrashcourse.ecommerce.product;
 
-import com.yetanotheruseless.industrycrashcourse.ecommerce.Order.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-
 
 @RestController
 @RequestMapping(path = "api/v1/product")
@@ -19,23 +16,21 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping(path = "list")
+    @GetMapping(path = "all")
     public List<Product> list() {
         return productService.findAll();
     }
 
-    @GetMapping(path = "{sku}")
+    @GetMapping("{sku}")
     public Product get(@PathVariable String sku) {
-        return productService.findBySku(sku).orElseThrow(() -> new RuntimeException("dude, not found"));
+        return productService.findBySku(sku).orElseThrow(() -> new RuntimeException("not found"));
     }
 
     @PostMapping
     public Long addProduct(@RequestBody Product product) {
-        if (product.getName() == null) {
-            // no way!  throw exception
-        }
         return productService.addProduct(product);
     }
+<<<<<<< HEAD
 
 
     @GetMapping(path = "byCustomerReviewAverage/{min}/{max}")
@@ -44,4 +39,6 @@ public class ProductController {
     }
 
 
+=======
+>>>>>>> origin/main
 }
