@@ -12,25 +12,29 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.repository.config.BootstrapMode;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.persistence.EntityManager;
+import javax.sql.DataSource;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
-
-import static org.mockito.Mockito.when;
 
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
 @DataJpaTest(bootstrapMode = BootstrapMode.DEFAULT)
 class EcommerceDBTests {
 
+	@Autowired private DataSource dataSource;
+	@Autowired private JdbcTemplate jdbcTemplate;
+	@Autowired private EntityManager entityManager;
+
 	@Autowired
 	private ProductRepository productRepository;
 
-	@MockBean
-	private ShoppingCartService shoppingCartService;
+	@Autowired
+	private ShoppingCartRepository shoppingCartRepository;
 
 	@Test
 	void contextLoads() {
@@ -42,10 +46,12 @@ class EcommerceDBTests {
 		cart1.setLastUpdatedAtTimestamp(Instant.now());
 		ShoppingCart cart2 = new ShoppingCart();
 		cart2.setLastUpdatedAtTimestamp(Instant.now().plusSeconds(60));
-		when(shoppingCartService.findAll()).thenReturn(Arrays.asList(cart1, cart2));
+		shoppingCartRepository.save(cart1);
+		shoppingCartRepository.save(cart2);
 
 		List<ShoppingCart> results =
-				shoppingCartService.findAllWithLastUpdatedAtTimestampBefore(Instant.now().plusSeconds(5));
+				shoppingCartRepository.findAllWithLastUpdatedAtTimestampBefore(Instant.now().plusSeconds(5));
+//		System.out.println("RESULTS:" + results);
 
 		assert results.size() == 1;
 	}

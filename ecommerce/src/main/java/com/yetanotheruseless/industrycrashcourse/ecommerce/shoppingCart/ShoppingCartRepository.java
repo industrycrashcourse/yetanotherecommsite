@@ -16,8 +16,8 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long
 
     // spring boot does not natively support this type of query, so we have to handwrite it.
     // convert java.time.Instant to a java.sql.Timestamp using Timestamp.from(Instant)
-    @Query("select cart from ShoppingCart cart where cart.lastUpdatedAtTimestamp <= :dateTime")
+    @Query("select cart from ShoppingCart cart where cart.lastUpdatedAtTimestamp <= :instant")
     List<ShoppingCart> findAllWithLastUpdatedAtTimestampBefore(
-            @Param("dateTime") Instant dateTime);
+            @Param("instant") Instant instant);
 
 }
