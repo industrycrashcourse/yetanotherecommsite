@@ -30,15 +30,5 @@ public class ProductController {
     public Long addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
     }
-<<<<<<< HEAD
 
-
-    @GetMapping(path = "byCustomerReviewAverage/{min}/{max}")
-    public List<Product> byCustomerReviewAverage(@PathVariable Double min, @PathVariable Double max) {
-        return productService.findByCustomerReviewAverageRange(min, max);
-    }
-
-
-=======
->>>>>>> origin/main
 }
