@@ -30,4 +30,5 @@ public class ProductController {
     public Long addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
     }
+
 }
