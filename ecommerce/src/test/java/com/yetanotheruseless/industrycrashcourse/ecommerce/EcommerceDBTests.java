@@ -3,7 +3,6 @@ package com.yetanotheruseless.industrycrashcourse.ecommerce;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.product.ProductRepository;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart.ShoppingCart;
 import com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart.ShoppingCartRepository;
-import com.yetanotheruseless.industrycrashcourse.ecommerce.shoppingCart.ShoppingCartService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -51,7 +50,6 @@ class EcommerceDBTests {
 
 		List<ShoppingCart> results =
 				shoppingCartRepository.findAllWithLastUpdatedAtTimestampBefore(Instant.now().plusSeconds(5));
-//		System.out.println("RESULTS:" + results);
 
 		assert results.size() == 1;
 	}
